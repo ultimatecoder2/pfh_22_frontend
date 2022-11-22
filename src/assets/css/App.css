@@ -1,20 +1,20 @@
 /* Text Beautification*/
 .rainbow-lr {
   background: linear-gradient(to right, #A44BC7, cyan, blue, violet);
-  color:transparent;
+  color:transpa0rent;
   background-clip: text;
 }
 
 .rainbow-td {
-  background: linear-gradient(to bottom, red, orange , yellow, green, cyan, blue, violet);
+  background: linear-gradient(to bottom, #fc1a1a, rgb(255, 109, 11) , #f7b733, yellow);
   color:transparent;
   background-clip: text;
 }
-.blue_violet_gradient{
-  background: rgb(12,7,89);
-  background: -moz-linear-gradient(213deg, rgba(12,7,89,1) 8%, rgba(117,0,189,1) 35%, rgba(159,7,107,1) 46%, rgba(225,5,169,1) 70%, rgba(0,130,255,1) 100%);
-  background: -webkit-linear-gradient(213deg, rgba(12,7,89,1) 8%, rgba(117,0,189,1) 35%, rgba(159,7,107,1) 46%, rgba(225,5,169,1) 70%, rgba(0,130,255,1) 100%);
-  background: linear-gradient(213deg, rgba(12,7,89,1) 8%, rgba(117,0,189,1) 35%, rgba(159,7,107,1) 46%, rgba(225,5,169,1) 70%, rgba(0,130,255,1) 100%);
+.red_orange_gradient{
+  background: rgb(254, 82, 8);
+  background: -moz-linear-gradient(213deg, #dd7c0d 8%, rgb(242 99 99) 35%, rgb(255, 109, 11) 46%, rgb(246, 100, 22) 70%, #fca757 100%);
+  background: -webkit-linear-gradient(213deg, #dd4b0d 8%,rgb(242 99 99) 35%, rgb(255, 109, 11) 46%, rgb(246, 100, 22) 70%, #fca757 100%);
+  background: linear-gradient(213deg, #dd4b0d 8%,rgb(242 99 99) 35%, rgb(255, 109, 11) 46%, rgb(246, 100, 22) 70%, #fca757 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0c0759",endColorstr="#0082ff",GradientType=1);
   color:transparent;
   background-clip: text;
@@ -31,23 +31,30 @@
 
 .section_heading{
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 3rem;
   text-transform: uppercase;
+  /* color:orange; */
+  font-weight: 500;
 }
 .section_content{
-  padding-bottom: 7rem;
+  padding-bottom: 5rem;
   padding-top:3rem;
 
 }
 
-.new__section{
-  border-top: 1px solid #111;
-  padding-top: 6rem;
-  padding-bottom: 6rem;
-  
+.new_section{
+  border-top: 1px solid #d3d3d3;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
+.new_component{
+  background-color: #fafafa;
+}
 
+.section__image{
+  text-align: center;
+}
 /**********************************************/
 /*Buttons*/
 .form__button{

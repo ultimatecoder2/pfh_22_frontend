@@ -2,7 +2,7 @@ import React from 'react';
 import {render} from 'react-dom';
 import HeaderAppBar from './components/Header';
 import AppRouter from './routers/AppRouter';
-import './styles/styles.css';
+import './assets/css/App.css'
 
 const App = () => (
     <AppRouter />
