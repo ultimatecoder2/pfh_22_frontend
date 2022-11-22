@@ -7,7 +7,8 @@ import PublicRoute from './PublicRouter';
 import PrivateRoute from './PrivateRouter';
 import LoginPage from '../components/LoginPage';
 import FormsPage from '../components/FormsPage';
-
+import Footer from '../components/Footer';
+import Header from '../components/Header';
 
 
 
@@ -15,7 +16,7 @@ import FormsPage from '../components/FormsPage';
 const AppRouter = () => (
   <BrowserRouter>
     <div>
-      
+    <Header/>
       <Routes>
         {/* Replace Route with public and private  */}
         <Route path="/" element={<LandingPage/>} exact={true}/>
@@ -25,7 +26,7 @@ const AppRouter = () => (
         <Route path="/forms" element={<FormsPage/>} />
         
       </Routes>
-      
+      <Footer/>
     </div>
   </BrowserRouter>
 );

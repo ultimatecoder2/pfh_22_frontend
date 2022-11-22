@@ -1,121 +1,62 @@
 import React from 'react';
-import AppBar from '@mui/material/AppBar';
-
 import { connect } from 'react-redux';
-import Drawer from '@mui/material/Drawer';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import Divider from '@mui/material/Divider';
-import Paper from '@mui/material/Paper';
-
-
-
-
+import { Button, Nav, NavItem, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import PublicNavList from '../navs/publicNav';
-import PrivateNavList from '../navs/privateNav';
-import ExpandNavList from '../navs/expandNavs'
+import {LinkContainer} from 'react-router-bootstrap'
+// import PublicNavList from '../navs/publicNav';
+// import PrivateNavList from '../navs/privateNav';
+// import ExpandNavList from '../navs/expandNavs'
 import {NavLink} from 'react-router-dom';
+import '../assets/css/header_footer.css'
 
 
 class Header extends React.Component{
 
   constructor(props) {
-
-   
     super(props);
-    this.state = {value: 1,open:false,
-      componentsmenuopen:false};
-
-
-     console.log('inside header component ',this.props.userid);
     
   }
 
-  handleChange = (event, index, value) => this.setState({value});
-    onLeftIconButtonClick = (event, index, value) => {
-        console.log('hi;');
-       this.setState({open: !this.state.open});
-    
- };
 
-  toggleDrawer = (open) => () => {
-    this.setState({
-      open: open,
-    });
-  };
-
-  handleClick=()=>{
-    console.log('clicked');
-    this.setState({componentsmenuopen:!this.state.componentsmenuopen});
-  };
-
-handleClose = event => {
-    if (this.target1.contains(event.target) || this.target2.contains(event.target)) {
-      return;
-    }
-
-    this.setState({ componentsmenuopen: false });
-  };
- conditRenderEssential =()=>this.props.userid?(
-             <Button color="inherit" align="right" onClick={this.props.startLogout}> Logout</Button>):(<Button color="inherit" align="right"><Link to="/login"> Login</Link></Button>)
    
   render() { 
-
-      const { open } = this.state.componentsmenuopen;
       return (
     <div>
-
- 
-
-         <Drawer open={this.state.open} onClose={this.toggleDrawer(false)} >
-          <div
-            tabIndex={0}
-            role="button"
-            
-           >
-            <div className="sidelistwrapper">
-      
-
-
-      {!this.props.userid && (<React.Fragment><PublicNavList/> <ExpandNavList/></React.Fragment>)}
-
-
-      {/*start if testing*/}
- 
-{this.props.userid && (<React.Fragment>
-  <PrivateNavList/>
-  </React.Fragment>
-  )}
-        {/* end of testing */}
-            
-         
-        
-      </div>
-          </div>
-        </Drawer>
-<div className="appbarwrapper">
-  
-        <AppBar position="static">
-        <Toolbar>
-          <IconButton className="iconbuttonsyle" color="inherit" aria-label="Menu" onClick={this.onLeftIconButtonClick}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className="headertypoclass" >
-            My React App
-          </Typography>
-
-          {
-            this.conditRenderEssential()
-             }
-          
-        </Toolbar>
-      </AppBar>
-      </div>
-</div>
+      <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav_bar_section">
+        <Container>
+          <LinkContainer to="/">
+          <Navbar.Brand>Website Name</Navbar.Brand>
+          </LinkContainer>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav">
+            <Nav className="me-auto">
+              <NavItem>
+                <Link to="/home" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Link1
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/home" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Link2
+                </Link>
+              </NavItem>
+            </Nav>
+            <Nav>
+              <NavItem>
+                <Link to="/home" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Login
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/home" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Signup
+                </Link>
+              </NavItem>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
       );
   };
 }
