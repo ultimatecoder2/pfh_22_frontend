@@ -1,4 +1,4 @@
-import {record, authRecord} from '../apis/feed_needy';
+import {record, authRecord} from '../apis/backend_api';
 import {UPDATE_FORM, UPDATE_FAILED, FETCH_PROFILE, FETCH_PROFILE_FAILED, GET_USER_PROFILE, GET_USER_PROFILE_FAILED} from './actionTypes'
 
 export const updateProfile = (data) => async (dispatch,getState) =>{

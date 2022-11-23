@@ -1,4 +1,4 @@
-import {record, authRecord} from '../apis/feed_needy';
+import {record, authRecord} from '../apis/backend_api';
 import history from '../history';
 import {SIGN_UP, AUTH_FAILED, SIGN_IN, SIGN_OUT, FORGOT_PASS, 
     FORGOT_PASS_FAILED, RESET_PASS, RESET_PASS_FAILED, RESET_USER_PROFILE} from './actionTypes'

@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Nav, NavItem, Navbar, NavDropdown, Container } from 'react-bootstrap';
+import { Nav, NavItem, Navbar, Container } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap'
 // import PublicNavList from '../navs/publicNav';
 // import PrivateNavList from '../navs/privateNav';
 // import ExpandNavList from '../navs/expandNavs'
-import {NavLink} from 'react-router-dom';
 import '../assets/css/header_footer.css'
 
 
@@ -43,12 +42,12 @@ class Header extends React.Component{
             </Nav>
             <Nav>
               <NavItem>
-                <Link to="/home" className="nav-link" >
+                <Link to="/login" className="nav-link" >
                   <span className="NavBarLink fa fa-home fa-lg" /> Login
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/home" className="nav-link" >
+                <Link to="/login" className="nav-link" >
                   <span className="NavBarLink fa fa-home fa-lg" /> Signup
                 </Link>
               </NavItem>

@@ -1,7 +1,11 @@
+a{
+  text-decoration: none;
+}
+
 /* Text Beautification*/
 .rainbow-lr {
   background: linear-gradient(to right, #A44BC7, cyan, blue, violet);
-  color:transpa0rent;
+  color:transparent;
   background-clip: text;
 }
 
@@ -32,8 +36,6 @@
 .section_heading{
   text-align: center;
   font-size: 3rem;
-  text-transform: uppercase;
-  /* color:orange; */
   font-weight: 500;
 }
 .section_content{
@@ -62,8 +64,15 @@
   margin-right: 10px;
   border-radius: 10px !important;
 }
-.pink_blue_gradiend_btn{
-  background-image:linear-gradient(to right, violet, #A44BC7, blue, rgb(41, 41, 136)) ;
+.large_btn{
+  border:none;
+  padding: .6rem 2rem;
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  color:white
+}
+.orange_red_gradiend_btn{
+  background-image: linear-gradient(to right, #fca757, #ff5858);
 }
 
 /* Customized Scrollbar*/

@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {Container, Row, Col} from 'react-bootstrap';
 
 export class FormsPage extends React.Component{
 
@@ -50,11 +50,17 @@ render(){
 
 
   return (
-     <div className="contact-page-wrapper">
+    <div className="new_component">
+      <Container>
+        <div className= "new_section">
+          <Row>
+            <h2>Forms Page</h2>
+          </Row>
+        </div>
 
-
-
-       </div>
+        
+      </Container>
+    </div>
   );
 }
 

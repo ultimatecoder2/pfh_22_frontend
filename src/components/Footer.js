@@ -47,7 +47,7 @@ class footer extends Component{
                                 <Row>
                                 </Row>
                             </div>
-                            <p style={{fontSize:'1.2rem', color:'#fff'}}>Made with ❤️ by <b>Binary Assassins.</b>   </p>            
+                            <p style={{fontSize:'1.2rem', color:'#fff'}}>Made with ❤️ by <b><span className="red_orange_gradient">Binary Assassins</span></b>   </p>            
                             <p>&#169;	2022. All rights Reserved.</p>
                         </div>    
                     </Container>

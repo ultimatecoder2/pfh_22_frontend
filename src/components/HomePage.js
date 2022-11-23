@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Container, Row, Col } from 'react-bootstrap';
 
 
 
@@ -7,10 +7,18 @@ import React from 'react';
   
 
 const HomePage = () => (
-  <React.Fragment>
-    <h1>Home Page</h1>
-    
-  </React.Fragment>
+  <div className="new_component">
+    <Container>
+      <div className= "new_section">
+        <Row>
+          <h2>Home Page</h2>
+        </Row>
+      </div>
+
+      
+    </Container>
+
+  </div>
 );
 
 export default HomePage;
