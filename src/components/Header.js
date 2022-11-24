@@ -25,7 +25,7 @@ class Header extends React.Component{
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark" className="nav_bar_section">
         <Container>
           <LinkContainer to="/">
-          <Navbar.Brand>Website Name</Navbar.Brand>
+          <Navbar.Brand className="navbar__brand">GenEx</Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
@@ -40,6 +40,13 @@ class Header extends React.Component{
                   <span className="NavBarLink fa fa-home fa-lg" />
                   <i class="fa-solid fa-arrows-repeat"></i>
                    Executor
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/instructions" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" />
+                  <i class="fa-solid fa-arrows-repeat"></i>
+                   Instructions
                 </Link>
               </NavItem>
             </Nav>
