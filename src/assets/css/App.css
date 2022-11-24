@@ -10,7 +10,7 @@ a{
 }
 
 .rainbow-td {
-  background: linear-gradient(to bottom, #fc1a1a, rgb(255, 109, 11) , #f7b733, yellow);
+  background: rgb(255, 109, 11);
   color:transparent;
   background-clip: text;
 }
@@ -35,13 +35,14 @@ a{
 
 .section_heading{
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.25rem;
   font-weight: 500;
 }
+
+
 .section_content{
   padding-bottom: 5rem;
   padding-top:3rem;
-
 }
 
 .new_section{
@@ -69,7 +70,7 @@ a{
   /* padding: .6rem 2rem; */
   padding: 0.7rem 1.2rem;
   font-size: 1.2rem;
-  border-radius: 1rem;
+  border-radius: 5px;
   color:white;
   margin: auto !important;
 }
