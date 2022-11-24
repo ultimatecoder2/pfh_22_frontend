@@ -5,12 +5,13 @@ import {SIGN_UP, AUTH_FAILED, SIGN_IN, SIGN_OUT, FORGOT_PASS,
 
 export const signUp = (userDetails) => async (dispatch,getState) =>{
     try{
-        const response = await record.post('/users', userDetails);
-        localStorage.setItem('isSignedIn','true');
-        localStorage.setItem('userId', response.data.user._id);
-        localStorage.setItem('token',response.data.token);
-        history.push('/');
-        dispatch({type:SIGN_UP,payload:response.data});
+        const response = await record.post('/auth/register/', userDetails);
+        console.log(response);
+        // localStorage.setItem('isSignedIn','true');
+        // localStorage.setItem('userId', response.data.user._id);
+        // localStorage.setItem('token',response.data.token);
+        // history.push('/');
+        // dispatch({type:SIGN_UP,payload:response.data});
     }catch(e){
         let error = e;
         console.log(e.response);
@@ -27,7 +28,7 @@ export const signUp = (userDetails) => async (dispatch,getState) =>{
 
 export const signIn = (userDetails) => async (dispatch,getState) =>{
     try{
-        const response = await record.post('/users/login', userDetails);
+        const response = await record.post('/auth/login/', userDetails);
         localStorage.setItem('isSignedIn','true');
         localStorage.setItem('userId', response.data.user._id);
         localStorage.setItem('token',response.data.token);
