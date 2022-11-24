@@ -7,6 +7,7 @@ import {RiLockPasswordFill} from 'react-icons/ri';
 import {BsGearFill} from 'react-icons/bs';
 import {VscJson} from 'react-icons/vsc';
 import FileDrop from './FileDrop';
+import CodeBlockComp from './utils/CodeBlockComp';
 import '../assets/css/code_executor.css';
 
 const options = [
@@ -15,19 +16,24 @@ const options = [
     { value: 'ICICI_BIRTH_2', label: 'ICICI_BIRTH_2' },
   ];
 
+var data = {};
+const jsonData = {
+    text:"sd",
+    js:"sdf"
+}
+
+data.data = jsonData;
+data.language = "json"
+
 class CodeExecutor extends Component {
 
     constructor(props){
         super(props);
 
         this.state = {
-            email:"",
-            password:"",
             selectedMapping: "",
             inputFile: null,
             errors:{
-                email:"",
-                password:"",
                 selectedMapping:"",
                 inputFile:""
             }
@@ -46,38 +52,22 @@ class CodeExecutor extends Component {
         });
     }
     validateForm = (data)=>{
-        const {email, password, selectedMapping} = data;
-        let emailError="",passwordError="", selectedMappingError="", error=false;
+        const {selectedMapping, inputFile} = data;
+        let selectedMappingError="", inputFileError="", error=false;
 
         if(!selectedMapping){
             selectedMappingError = "Choose a Mapping Type";
             error = true;
         }
-        else if(!email){
-            emailError = "Email is required";
-            error = true;            
-        }
-        else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
-        {
-            emailError = "Email address is Invalid";
-            error= true;
-        }
-        if(!password.trim())
-        {
-            passwordError="Password is required"
-            error= true;
-        }
-        else if(password.length<6)
-        {
-            passwordError="Password must be 6 or more characters long"
-            error= true;
+        else if(!inputFile){
+            inputFileError = "Choose an Input File";
+            error = true;
         }
         
         this.setState(prevState => ({
             errors:{
-                email:emailError,
-                password: passwordError,
-                selectedMapping: selectedMappingError
+                selectedMapping: selectedMappingError,
+                inputFile: inputFileError
             }
         }))
         
@@ -100,9 +90,6 @@ class CodeExecutor extends Component {
     handleSubmit = async(event)=> {
         event.preventDefault();
         const isValid = this.validateForm(this.state);
-        if(isValid){
-            const {email,password} = this.state;
-        }
     }
 
     render(){
@@ -132,7 +119,8 @@ class CodeExecutor extends Component {
                                     setCurrentFile={this.setInputFile}
                                     currentFile={this.state.inputFile}
                                     
-                                /> 
+                                />  
+                                <div className="invalid__feedback">{this.state.errors.inputFile}</div>
                                 {/* <input name="password" className="form-control" type="password" value={this.state.password} placeholder="Password must be at least 6 characters" onChange={this.handleInputChange} /> */}
                             </Form.Group>
                             <div className="form__btn">
@@ -144,9 +132,15 @@ class CodeExecutor extends Component {
                     </Col>
                     <Col xs={11} md={3} className="form_content_div login_form_div">
                         <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON
+                        <div className='code_block'>
+                            <CodeBlockComp data={data} />
+                        </div>
                     </Col>
                     <Col xs={11} md={3} className="form_content_div login_form_div">
                         <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Converted JSON
+                        <div className='code_block'>
+                            <CodeBlockComp data={data} />   
+                        </div>
                     </Col>
                 </div>
             </div>
