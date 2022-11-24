@@ -6,6 +6,7 @@ import {AiOutlineUnorderedList} from 'react-icons/ai';
 import {RiLockPasswordFill} from 'react-icons/ri';
 import {BsGearFill} from 'react-icons/bs';
 import {VscJson} from 'react-icons/vsc';
+import FileDrop from './FileDrop';
 import '../assets/css/code_executor.css';
 
 const options = [
@@ -23,10 +24,12 @@ class CodeExecutor extends Component {
             email:"",
             password:"",
             selectedMapping: "",
+            inputFile: null,
             errors:{
                 email:"",
                 password:"",
-                selectedMapping:""
+                selectedMapping:"",
+                inputFile:""
             }
         }
     }
@@ -87,13 +90,19 @@ class CodeExecutor extends Component {
         );
     };
 
+    setInputFile = (inputFile) => {
+        this.setState({
+            inputFile
+        })
+        console.log(inputFile)
+    }
+
     handleSubmit = async(event)=> {
         event.preventDefault();
         const isValid = this.validateForm(this.state);
         if(isValid){
             const {email,password} = this.state;
         }
-        
     }
 
     render(){
@@ -105,7 +114,7 @@ class CodeExecutor extends Component {
                     </div>
                 </div>
                 <div className='row'>
-                    <Col xs={11} md={6} className="form_content_div login_form_div">
+                    <Col xs={11} md={4} className="form_content_div login_form_div">
                         <Form>
                             <Form.Group controlId="formBasicEmail" className="form_field_div">
                                 <Form.Label><span className="form__icon"><AiOutlineUnorderedList/></span><span className="label__important">*</span> Choose Mapping</Form.Label>
@@ -117,7 +126,13 @@ class CodeExecutor extends Component {
                                 <div className="invalid__feedback">{this.state.errors.selectedMapping}</div>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword" className="form_field_div">
-                                <Form.Label><span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON</Form.Label>
+                                <Form.Label><span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON File</Form.Label>
+                                {/* <FileDrop 
+                                    accepted_file_type="application/json"
+                                    setCurrentFile={this.setInputFile}
+                                    currentFile={this.state.inputFile}
+                                    
+                                /> */}
                                 {/* <input name="password" className="form-control" type="password" value={this.state.password} placeholder="Password must be at least 6 characters" onChange={this.handleInputChange} /> */}
                             </Form.Group>
                             <div className="form__btn">
@@ -126,6 +141,12 @@ class CodeExecutor extends Component {
                                 </button>
                             </div>
                         </Form>
+                    </Col>
+                    <Col xs={11} md={3} className="form_content_div login_form_div">
+                        <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON
+                    </Col>
+                    <Col xs={11} md={3} className="form_content_div login_form_div">
+                        <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Converted JSON
                     </Col>
                 </div>
             </div>
