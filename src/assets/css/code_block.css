@@ -5,3 +5,9 @@
 .code_block_icon{
     margin-right:5px;
 }
+
+.code_block_div{
+    max-height: 50vh;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+}
