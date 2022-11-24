@@ -127,12 +127,12 @@ class CodeExecutor extends Component {
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword" className="form_field_div">
                                 <Form.Label><span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON File</Form.Label>
-                                {/* <FileDrop 
+                                <FileDrop 
                                     accepted_file_type="application/json"
                                     setCurrentFile={this.setInputFile}
                                     currentFile={this.state.inputFile}
                                     
-                                /> */}
+                                /> 
                                 {/* <input name="password" className="form-control" type="password" value={this.state.password} placeholder="Password must be at least 6 characters" onChange={this.handleInputChange} /> */}
                             </Form.Group>
                             <div className="form__btn">

@@ -14,6 +14,7 @@ const CodeGeneratorPage = () => {
 
   return (
     <div className="code_generator">
+      <h2>Code Generator</h2>
       <Container className="code_generator__container">
         <FileDrop
           accepted_file_type="application/json"

@@ -1,4 +1,19 @@
+.code_generator {
+    padding: 10px;    
+}
+
 .code_generator__container {
     display: flex;
     justify-content: center;
+}
+
+.code_generator > h2 {
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .code_generator__container {
+        display: flex;
+        flex-wrap: wrap;
+    }
 }
