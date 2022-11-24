@@ -5,24 +5,26 @@ import {Link} from 'react-router-dom';
 import {toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import {AiOutlineMail} from 'react-icons/ai';
+import {AiOutlineMail, AiOutlineUser} from 'react-icons/ai';
 import {RiLockPasswordFill} from 'react-icons/ri';
 
-import {signIn} from '../actions/index';
+import {signUp} from '../actions/index';
 import history from '../history';
 import '../assets/css/forms.css';
 
 
 
-class LoginPage extends React.Component{
+class SignUp extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+        name:"",
         email:"",
         password:"",
         errors:{
             email:"",
-            password:""
+            password:"",
+            name:""
         }
     }
   }
@@ -39,8 +41,8 @@ class LoginPage extends React.Component{
       });
   }
   validateForm = (data)=>{
-      const {email, password} = data;
-      let emailError="",passwordError="", error=false;
+      const {email, password, name} = data;
+      let emailError="",passwordError="", nameError = "", error=false;
       if(!email){
           emailError = "Email is required";
           error = true;            
@@ -61,10 +63,16 @@ class LoginPage extends React.Component{
           error= true;
       }
       
+      if(!name){
+        nameError = "Name is required";
+        error = true;
+      }
+
       this.setState(prevState => ({
           errors:{
               email:emailError,
-              password: passwordError
+              password: passwordError,
+              name:nameError
           }
       }))
       
@@ -77,8 +85,8 @@ class LoginPage extends React.Component{
       event.preventDefault();
       const isValid = this.validateForm(this.state);
       if(isValid){
-          const {email,password} = this.state;
-      //     await this.props.signIn({email, password});
+          const {email,password, name} = this.state;
+        //   await this.props.signUp({name, email, password});
 
       //     if(this.props.auth.error){
       //         // this.notifyFail(this.props.auth.error);
@@ -96,10 +104,16 @@ render(){
       <div className= "new_section">
         <Col md={6} className="form_content_div login_form_div">
           <Row>
-            <h2 className="form_heading red_orange_gradient">Login</h2>
+            <h2 className="form_heading red_orange_gradient">Sign up</h2>
           </Row>
 
           <Form>
+            <Form.Group controlId="formBasicName" className="form_field_div">
+                <Form.Label><span className="form__icon"><AiOutlineUser/></span><span className="label__important">*</span> Name</Form.Label>
+                <input name="name" className="form-control" type="text" value={this.state.email} placeholder="Enter name" onChange={this.handleInputChange} />
+                <div className="invalid__feedback">{this.state.errors.name}</div>
+            </Form.Group>
+
             <Form.Group controlId="formBasicEmail" className="form_field_div">
                 <Form.Label><span className="form__icon"><AiOutlineMail/></span><span className="label__important">*</span> Email address</Form.Label>
                 <input name="email" className="form-control" type="email" value={this.state.email} placeholder="Enter email" onChange={this.handleInputChange} />
@@ -115,13 +129,13 @@ render(){
             </Form.Group>
             <div className="form__btn">
                 <button className="large_btn orange_red_gradiend_btn" type="submit" onClick={this.handleSubmit}>
-                    Login
+                    Sign up
                 </button>
             </div>
           </Form>
                     
           <div className="form__other__text">
-            New user? <Link to="/signup">Sign Up</Link>
+            Already have an account? <Link to="/login">Login</Link>
           </div>
         </Col>
       </div>
@@ -148,4 +162,4 @@ const mapStateToProps = (state, ownProps)=>{
 
 }
 
-export default connect(mapStateToProps,{signIn})(LoginPage);
+export default connect(mapStateToProps,{signUp})(SignUp);
