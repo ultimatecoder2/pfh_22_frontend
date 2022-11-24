@@ -66,10 +66,12 @@ a{
 }
 .large_btn{
   border:none;
-  padding: .6rem 2rem;
+  /* padding: .6rem 2rem; */
+  padding: 0.7rem 1.2rem;
   font-size: 1.2rem;
   border-radius: 1rem;
-  color:white
+  color:white;
+  margin: auto !important;
 }
 .orange_red_gradiend_btn{
   background-image: linear-gradient(to right, #fca757, #ff5858);

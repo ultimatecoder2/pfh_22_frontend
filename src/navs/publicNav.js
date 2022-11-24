@@ -23,7 +23,7 @@ export const publicNavs = [
         url:'/products',
         name:'Products',
         icon:<ExtensionIcon/>
-    },
+    }
     // add new Nav links here as a json object, in this file the public navigations
 ];
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Nav, NavItem, Navbar, Container } from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 import {LinkContainer} from 'react-router-bootstrap'
+import {} from 'react-icons/fa';
 // import PublicNavList from '../navs/publicNav';
 // import PrivateNavList from '../navs/privateNav';
 // import ExpandNavList from '../navs/expandNavs'
@@ -37,6 +38,13 @@ class Header extends React.Component{
               <NavItem>
                 <Link to="/home" className="nav-link" >
                   <span className="NavBarLink fa fa-home fa-lg" /> Link2
+                </Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/code-executor" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" />
+                  <i class="fa-solid fa-arrows-repeat"></i>
+                   Executor
                 </Link>
               </NavItem>
             </Nav>

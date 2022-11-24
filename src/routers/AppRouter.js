@@ -9,7 +9,7 @@ import LoginPage from '../components/LoginPage';
 import FormsPage from '../components/FormsPage';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-
+import CodeExecutor from '../components/CodeExecutor';
 
 
 
@@ -25,6 +25,8 @@ const AppRouter = () => (
         <Route path="/login" element={<LoginPage/>}  />
         <Route path="/forms" element={<FormsPage/>} />
         
+        <Route path="/code-executor" element={<CodeExecutor />} />
+
       </Routes>
       <Footer/>
     </div>
