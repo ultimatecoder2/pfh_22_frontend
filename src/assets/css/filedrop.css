@@ -3,8 +3,6 @@
     flex-wrap: wrap;
     padding: 10px;
     margin: 10px;
-    min-width: 40%;
-    max-width: 45%;
     justify-content: center;
     gap: 10px;
 }
@@ -17,14 +15,4 @@
 
 .file_form__file_format {
     text-decoration: underline;
-}
-
-.file_form input[type="file"] {
-    height: 200px;
-}
-
-@media only screen and (max-width: 600px) {
-    .file_form {
-        min-width: 80%;
-    }
 }
