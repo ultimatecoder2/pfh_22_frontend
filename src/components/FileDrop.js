@@ -30,7 +30,7 @@ const FileDrop = ({ accepted_file_type, setCurrentFile, setFileName }) => {
       <Form.Label className="file_form__label">
         Please Upload a{" "}
         <span className="file_form__file_format">
-          {accepted_file_type.toUpperCase()}
+          {accepted_file_type.split('/')[1].toUpperCase()}
         </span>{" "}
         file
       </Form.Label>

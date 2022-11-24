@@ -1,92 +1,83 @@
-import React, {Component} from 'react';
-import {Container, Row, Col, Image, Form} from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Container, Row, Col, Image, Form } from 'react-bootstrap';
 import Select from 'react-select'
-import {Link} from 'react-router-dom';
-import {AiOutlineUnorderedList} from 'react-icons/ai';
-import {RiLockPasswordFill} from 'react-icons/ri';
-import {BsGearFill} from 'react-icons/bs';
-import {VscJson} from 'react-icons/vsc';
+import { Link } from 'react-router-dom';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { RiLockPasswordFill } from 'react-icons/ri';
+import { BsGearFill } from 'react-icons/bs';
+import { VscJson } from 'react-icons/vsc';
 import FileDrop from './FileDrop';
+import CodeBlockComp from './utils/CodeBlockComp';
 import '../assets/css/code_executor.css';
 
 const options = [
     { value: 'SBI_ADHAR_1', label: 'SBI_ADHAR_1' },
     { value: 'PNB_INCOME_1', label: 'PNB_INCOME_1' },
     { value: 'ICICI_BIRTH_2', label: 'ICICI_BIRTH_2' },
-  ];
+];
+
+var data = {};
+const jsonData = {
+    text: "sd",
+    js: "sdf"
+}
+
+data.data = jsonData;
+data.language = "json"
 
 class CodeExecutor extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            email:"",
-            password:"",
             selectedMapping: "",
             inputFile: null,
-            errors:{
-                email:"",
-                password:"",
-                selectedMapping:"",
-                inputFile:""
+            inputFileJson: null,
+            errors: {
+                selectedMapping: "",
+                inputFile: ""
             }
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
 
     }
 
-    handleInputChange=(event)=>{
+    handleInputChange = (event) => {
         const target = event.target;
         const name = target.name;
         this.setState({
-          [name]: event.target.value
+            [name]: event.target.value
         });
     }
-    validateForm = (data)=>{
-        const {email, password, selectedMapping} = data;
-        let emailError="",passwordError="", selectedMappingError="", error=false;
+    validateForm = (data) => {
+        const { selectedMapping, inputFile } = data;
+        let selectedMappingError = "", inputFileError = "", error = false;
 
-        if(!selectedMapping){
+        if (!selectedMapping) {
             selectedMappingError = "Choose a Mapping Type";
             error = true;
         }
-        else if(!email){
-            emailError = "Email is required";
-            error = true;            
+        else if (!inputFile) {
+            inputFileError = "Choose an Input File";
+            error = true;
         }
-        else if(!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(email))
-        {
-            emailError = "Email address is Invalid";
-            error= true;
-        }
-        if(!password.trim())
-        {
-            passwordError="Password is required"
-            error= true;
-        }
-        else if(password.length<6)
-        {
-            passwordError="Password must be 6 or more characters long"
-            error= true;
-        }
-        
+
         this.setState(prevState => ({
-            errors:{
-                email:emailError,
-                password: passwordError,
-                selectedMapping: selectedMappingError
+            errors: {
+                selectedMapping: selectedMappingError,
+                inputFile: inputFileError
             }
         }))
-        
+
         return !error;
     }
 
     handleChange = (selectedMapping) => {
         this.setState({ selectedMapping }, () =>
-          console.log(`Option selected:`, this.state.selectedMapping)
+            console.log(`Option selected:`, this.state.selectedMapping)
         );
     };
 
@@ -97,27 +88,43 @@ class CodeExecutor extends Component {
         console.log(inputFile)
     }
 
-    handleSubmit = async(event)=> {
+    handleSubmit = async (event) => {
         event.preventDefault();
         const isValid = this.validateForm(this.state);
-        if(isValid){
-            const {email,password} = this.state;
+
+        const reader = new FileReader(this.state.inputFile);
+        reader.onload = (evt) => {
+            console.log(typeof (evt.target.result));
+            // view on page
+            this.setState({
+                inputFileJson: {
+                    data: JSON.parse(evt.target.result),
+                    language: "json"
+                }
+            }, () => {
+                console.log(this.state.inputFileJson);
+            });
+
+            // send to backend
+        };
+        if (this.state.inputFile) {
+            reader.readAsText(this.state.inputFile);
         }
     }
 
-    render(){
-        return(
+    render() {
+        return (
             <div className='container'>
                 <div className="row">
                     <div className="col-12">
                         <h3 className="section_heading red_orange_gradient main_heading">Code Executor</h3>
                     </div>
                 </div>
-                <div className='row'>
+                <div className='row main_content'>
                     <Col xs={11} md={4} className="form_content_div login_form_div">
                         <Form>
                             <Form.Group controlId="formBasicEmail" className="form_field_div">
-                                <Form.Label><span className="form__icon"><AiOutlineUnorderedList/></span><span className="label__important">*</span> Choose Mapping</Form.Label>
+                                <Form.Label><span className="form__icon"><AiOutlineUnorderedList /></span><span className="label__important">*</span> Choose Mapping</Form.Label>
                                 <Select
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
@@ -126,13 +133,14 @@ class CodeExecutor extends Component {
                                 <div className="invalid__feedback">{this.state.errors.selectedMapping}</div>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword" className="form_field_div">
-                                <Form.Label><span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON File</Form.Label>
-                                <FileDrop 
+                                <Form.Label><span className="form__icon"><VscJson /></span><span className="label__important">*</span> Input JSON File</Form.Label>
+                                <FileDrop
                                     accepted_file_type="application/json"
                                     setCurrentFile={this.setInputFile}
                                     currentFile={this.state.inputFile}
-                                    
-                                /> 
+
+                                />
+                                <div className="invalid__feedback">{this.state.errors.inputFile}</div>
                                 {/* <input name="password" className="form-control" type="password" value={this.state.password} placeholder="Password must be at least 6 characters" onChange={this.handleInputChange} /> */}
                             </Form.Group>
                             <div className="form__btn">
@@ -143,10 +151,16 @@ class CodeExecutor extends Component {
                         </Form>
                     </Col>
                     <Col xs={11} md={3} className="form_content_div login_form_div">
-                        <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Input JSON
+                        <span className="form__icon"><VscJson /></span><span className="label__important">*</span> Input JSON
+                        <div className='code_block'>
+                            <CodeBlockComp data={this.state.inputFileJson ? this.state.inputFileJson : data} />
+                        </div>
                     </Col>
                     <Col xs={11} md={3} className="form_content_div login_form_div">
-                        <span className="form__icon"><VscJson/></span><span className="label__important">*</span> Converted JSON
+                        <span className="form__icon"><VscJson /></span><span className="label__important">*</span> Converted JSON
+                        <div className='code_block'>
+                            <CodeBlockComp data={data} />
+                        </div>
                     </Col>
                 </div>
             </div>

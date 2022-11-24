@@ -25,8 +25,8 @@ let handleJsonFormat = (data) =>{
         <div>
             <CopyToClipboard text = {JSON.stringify(data.data)}>
                 <div className="form__btn">
-                    <button className="large_btn orange_red_gradiend_btn" onClick={copyHandler}>
-                        <span className='code_block_icon'><AiOutlineCopy/></span>Copy              
+                    <button className="large_btn orange_red_gradiend_btn">
+                        <span className='code_block_icon'><AiOutlineCopy/></span> Copy          
                     </button>
                 </div>
             </CopyToClipboard>
