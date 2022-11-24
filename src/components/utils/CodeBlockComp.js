@@ -7,22 +7,30 @@ import { CopyBlock, dracula } from "react-code-blocks";
 import {Button} from 'react-bootstrap';
 import '../../assets/css/code_block.css'
 import {AiOutlineCopy} from 'react-icons/ai'
+import {toast} from 'react-toastify';
+
+let copyHandler = () => {
+    toast.success("Copied to Clipboard")
+}
 
 let handleJsonFormat = (data) =>{
     return(
     <>
-        <div>
+    
+        <div className="code_block_div">
             <JSONPretty data = {data.data}
                 theme = {JSONPrettyMon}
             />
         </div>
+        <div>
             <CopyToClipboard text = {JSON.stringify(data.data)}>
                 <div className="form__btn">
                     <button className="large_btn orange_red_gradiend_btn">
                         <span className='code_block_icon'><AiOutlineCopy/></span> Copy          
                     </button>
                 </div>
-        </CopyToClipboard>
+            </CopyToClipboard>
+        </div>
     </>
     )
 }

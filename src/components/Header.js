@@ -31,17 +31,12 @@ class Header extends React.Component{
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
               <NavItem>
-                <Link to="/home" className="nav-link" >
-                  <span className="NavBarLink fa fa-home fa-lg" /> Link1
+                <Link to="/code-generator" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Generator
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/home" className="nav-link" >
-                  <span className="NavBarLink fa fa-home fa-lg" /> Link2
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link to="/code-executor" className="nav-link" >
+                <Link to="/" className="nav-link" >
                   <span className="NavBarLink fa fa-home fa-lg" />
                   <i class="fa-solid fa-arrows-repeat"></i>
                    Executor
@@ -55,7 +50,7 @@ class Header extends React.Component{
                 </Link>
               </NavItem>
               <NavItem>
-                <Link to="/login" className="nav-link" >
+                <Link to="/signup" className="nav-link" >
                   <span className="NavBarLink fa fa-home fa-lg" /> Signup
                 </Link>
               </NavItem>

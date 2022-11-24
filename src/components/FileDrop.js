@@ -5,13 +5,13 @@ import { AiFillWarning } from "react-icons/ai";
 
 import styles from "../assets/css/filedrop.css";
 
-const FileDrop = ({ accepted_file_type, setCurrentFile, width }) => {
+const FileDrop = ({ accepted_file_type, setCurrentFile, setFileName }) => {
   const [fileFormatError, setFileFormatError] = useState(false);
 
   const handleFileUploadChange = (event) => {
     setFileFormatError(false);
     var files = event.target.files;
-    if (files) {
+    if (files && files[0]) {
       var extension = files[0].type;
 
       if (extension !== accepted_file_type) {
@@ -19,6 +19,7 @@ const FileDrop = ({ accepted_file_type, setCurrentFile, width }) => {
         setFileFormatError(true);
       } else {
         setCurrentFile(files[0]);
+        setFileName(files[0].name.split(".").slice(0, -1));
         setFileFormatError(false);
       }
     }
@@ -31,7 +32,7 @@ const FileDrop = ({ accepted_file_type, setCurrentFile, width }) => {
         <span className="file_form__file_format">
           {accepted_file_type.split('/')[1].toUpperCase()}
         </span>{" "}
-        file.
+        file
       </Form.Label>
       <Form.Control
         className="file_form__input"
