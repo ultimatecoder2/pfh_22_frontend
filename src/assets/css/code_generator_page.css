@@ -1,14 +1,23 @@
 .code_generator {
-    padding: 10px;    
+    padding: 10px;
 }
 
-.code_generator__container {
+.code_generator__container_input {
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .code_generator > h2 {
     text-align: center;
+}
+
+.code_generator__generate-btn .col {
+    width: 100%;
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 600px) {
