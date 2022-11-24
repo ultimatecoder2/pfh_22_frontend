@@ -7,6 +7,7 @@ export const FORGOT_PASS = 'FORGOT_PASS';
 export const FORGOT_PASS_FAILED = 'FORGOT_PASS_FAILED';
 export const RESET_PASS = 'RESET_PASS'
 export const RESET_PASS_FAILED = 'RESET_PASS_FAILED'
+export const TOKEN_EXPIRED = 'TOKEN_EXPIRED'
 
 //Profile update Forms
 export const UPDATE_FORM = "UPDATE_FORM"

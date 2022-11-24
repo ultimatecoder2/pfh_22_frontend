@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Container, Row, Col, Image, Form } from 'react-bootstrap';
 import Select from 'react-select'
 import { Link } from 'react-router-dom';
@@ -9,6 +10,8 @@ import { VscJson } from 'react-icons/vsc';
 import FileDrop from './FileDrop';
 import CodeBlockComp from './utils/CodeBlockComp';
 import '../assets/css/code_executor.css';
+
+import {codeExecuterAPI} from '../actions/index';
 
 const options = [
     { value: 'SBI_ADHAR_1', label: 'SBI_ADHAR_1' },
@@ -93,7 +96,7 @@ class CodeExecutor extends Component {
         const isValid = this.validateForm(this.state);
 
         const reader = new FileReader(this.state.inputFile);
-        reader.onload = (evt) => {
+        reader.onload = async(evt) => {
             console.log(typeof (evt.target.result));
             // view on page
             this.setState({
@@ -101,11 +104,18 @@ class CodeExecutor extends Component {
                     data: JSON.parse(evt.target.result),
                     language: "json"
                 }
-            }, () => {
-                console.log(this.state.inputFileJson);
+            }, async() => {
+                // send to backend
+                const data = {
+                    mapping_id:this.state.selectedMapping.value,
+                    source_json:this.state.inputFileJson.data
+                }
+                console.log(data);
+                await this.props.codeExecuterAPI(data);
+
             });
 
-            // send to backend
+
         };
         if (this.state.inputFile) {
             reader.readAsText(this.state.inputFile);
@@ -138,6 +148,7 @@ class CodeExecutor extends Component {
                                     accepted_file_type="application/json"
                                     setCurrentFile={this.setInputFile}
                                     currentFile={this.state.inputFile}
+                                    setFileName
 
                                 />
                                 <div className="invalid__feedback">{this.state.errors.inputFile}</div>
@@ -168,4 +179,12 @@ class CodeExecutor extends Component {
     }
 }
 
-export default CodeExecutor;
+const mapStateToProps = (state, ownProps)=>{
+    return({
+        ...ownProps,
+        auth:state.auth
+    })
+  
+  }
+
+export default connect(mapStateToProps, {codeExecuterAPI})(CodeExecutor);

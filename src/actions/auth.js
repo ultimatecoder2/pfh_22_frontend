@@ -6,12 +6,17 @@ import {SIGN_UP, AUTH_FAILED, SIGN_IN, SIGN_OUT, FORGOT_PASS,
 export const signUp = (userDetails) => async (dispatch,getState) =>{
     try{
         const response = await record.post('/auth/register/', userDetails);
-        console.log(response);
-        // localStorage.setItem('isSignedIn','true');
-        // localStorage.setItem('userId', response.data.user._id);
-        // localStorage.setItem('token',response.data.token);
-        // history.push('/');
-        // dispatch({type:SIGN_UP,payload:response.data});
+        const data = {
+            token:response.data.token,
+            timestamp:Date.now()
+        }
+
+        localStorage.setItem('isSignedIn','true');
+        localStorage.setItem('timestamp', data.timestamp);
+        localStorage.setItem('token', data.token);
+        history.push('/');
+        
+        dispatch({type:SIGN_UP,payload:response.data});
     }catch(e){
         let error = e;
         console.log(e.response);
@@ -26,12 +31,17 @@ export const signUp = (userDetails) => async (dispatch,getState) =>{
     }
 }
 
-export const signIn = (userDetails) => async (dispatch,getState) =>{
+export const signIn = (userDetails) => async (dispatch, getState) =>{
     try{
         const response = await record.post('/auth/login/', userDetails);
+        console.log(response)
+        const data = {
+            token:response.data.token,
+            timestamp:Date.now()
+        }
         localStorage.setItem('isSignedIn','true');
-        localStorage.setItem('userId', response.data.user._id);
-        localStorage.setItem('token',response.data.token);
+        localStorage.setItem('timestamp', data.timestamp );
+        localStorage.setItem('token',  data.token);
         history.push('/');
         dispatch({type:SIGN_IN, payload:response.data});
     }catch(e){
@@ -55,14 +65,14 @@ export const signOut = (userDetails) => async (dispatch,getState) =>{
     try{
         await authRecord(token).post('/users/logout');
         localStorage.removeItem('token')
-        localStorage.removeItem('userId')
+        localStorage.removeItem('timestamp')
         localStorage.removeItem('isSignedIn')
         // history.push('/logout');
         dispatch({type:SIGN_OUT, payload:{msg:"You have been logged out successfully"}});
         dispatch({type:RESET_USER_PROFILE, payload:""})
     }catch(e){
         localStorage.removeItem('token')
-        localStorage.removeItem('userId')
+        localStorage.removeItem('timestamp')
         localStorage.removeItem('isSignedIn')
     }
     
@@ -107,3 +117,9 @@ export const signOut = (userDetails) => async (dispatch,getState) =>{
 //         dispatch({type:RESET_PASS_FAILED, payload:{error}})
 //     }
 // }
+export const sessionExpiry = () => async (dispatch,getState) =>{
+    localStorage.removeItem('token')
+    localStorage.removeItem('timestamp')
+    localStorage.removeItem('isSignedIn')
+    dispatch({type:SIGN_OUT, payload:{msg:"Your session has expired. Please login again"}});
+}

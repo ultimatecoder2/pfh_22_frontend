@@ -1,7 +1,8 @@
-import {SIGN_IN, SIGN_OUT, SIGN_UP, AUTH_FAILED} from '../actions/actionTypes';
+import {SIGN_IN, SIGN_OUT, SIGN_UP, AUTH_FAILED, TOKEN_EXPIRED} from '../actions/actionTypes';
 const INITIAL_STATE = {
     isSignedIn:localStorage.getItem('isSignedIn'),
     token: localStorage.getItem('token'),
+    timestamp: localStorage.getItem('timestamp'),
     error:null,
     message:null
 }
@@ -10,13 +11,15 @@ const INITIAL_STATE = {
 export default (state=INITIAL_STATE, action) => {
     switch(action.type){
         case SIGN_UP:
-            return{...state, isSignedIn:true, token:action.payload.token, error:null, message:null}
+            return{...state, isSignedIn:true, token:action.payload.token, timestamp:action.payload.timestamp, error:null, message:null}
         case SIGN_IN:
-            return{...state, isSignedIn:true, token:action.payload.token, error:null, message:null}
+            return{...state, isSignedIn:true, token:action.payload.token, timestamp:action.payload.timestamp, error:null, message:null}
         case SIGN_OUT:
-            return{...state, isSignedIn:false,  token:null, error:null, message:action.payload.msg}
+            return{...state, isSignedIn:false,  token:null, error:null, timestamp:null, message:action.payload.msg}
         case AUTH_FAILED:
-            return{...state, isSignedIn:false,  token:null,error:action.payload.error, message:null}
+            return{...state, isSignedIn:false,  token:null,error:action.payload.error, timestamp:null, message:null}
+        case TOKEN_EXPIRED:
+            return {...state, isSignedIn:false, token:null, error:null, timestamp:null, message:action.payload.msg}
         default:
             return state
     }

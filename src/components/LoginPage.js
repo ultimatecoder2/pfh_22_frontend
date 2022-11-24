@@ -78,7 +78,11 @@ class LoginPage extends React.Component{
       const isValid = this.validateForm(this.state);
       if(isValid){
           const {email,password} = this.state;
-      //     await this.props.signIn({email, password});
+          const data = {
+            username:email, 
+            password
+          }
+          await this.props.signIn(data);
 
       //     if(this.props.auth.error){
       //         // this.notifyFail(this.props.auth.error);
