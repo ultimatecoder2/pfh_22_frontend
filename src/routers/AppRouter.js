@@ -9,6 +9,7 @@ import LoginPage from "../components/LoginPage";
 import FormsPage from "../components/FormsPage";
 import CodeGeneratorPage from "../components/CodeGeneratorPage";
 import CodeExecutor from '../components/CodeExecutor';
+import InstructionPage from "../components/InstructionPage";
 
 
 import Footer from "../components/Footer";
@@ -25,6 +26,7 @@ const AppRouter = () => (
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/code-generator" element={<CodeGeneratorPage />} />
+        <Route path="/instructions" element={<InstructionPage />} />
         <Route path="/" element={<CodeExecutor/>}/>
       </Routes>
       <Footer />
