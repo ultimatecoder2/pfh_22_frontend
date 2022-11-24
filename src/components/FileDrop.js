@@ -5,7 +5,7 @@ import { AiFillWarning } from "react-icons/ai";
 
 import styles from "../assets/css/filedrop.css";
 
-const FileDrop = ({ accepted_file_type, setCurrentFile, currentFile }) => {
+const FileDrop = ({ accepted_file_type, setCurrentFile, width }) => {
   const [fileFormatError, setFileFormatError] = useState(false);
 
   const handleFileUploadChange = (event) => {
