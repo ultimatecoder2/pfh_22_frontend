@@ -1,7 +1,7 @@
 import {record} from '../apis/backend_api';
 import {signUp, signIn, signOut} from './auth'
 import {updateProfile, updateAddress, fetchProfile, getUserDetails} from './user';
-import {codeExecuterAPI}  from './codeExecutor'
+import {codeExecuterAPI, getMappingOptions}  from './codeExecutor'
 
 
 //Auth
@@ -16,3 +16,4 @@ export {getUserDetails};
 
 // code Generator and Executor
 export {codeExecuterAPI}
+export {getMappingOptions}

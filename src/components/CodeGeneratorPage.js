@@ -67,7 +67,7 @@ const CodeGeneratorPage = () => {
       console.log(formData);
 
       let token = "Token " + "f4e5b1f1b961faaf8d6b4431dd6715d8cd9bbfaa30ac95ee1f0be6aa5e770741";
-        fetch(accessURL+'main/generator', {
+        fetch(accessURL+'main/generator/', {
           method: "POST",
           body: formData,
           headers: {
