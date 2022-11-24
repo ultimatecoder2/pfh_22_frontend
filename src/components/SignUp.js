@@ -63,10 +63,10 @@ class SignUp extends React.Component{
           error= true;
       }
       
-      if(!name){
-        nameError = "Name is required";
-        error = true;
-      }
+      // if(!name){
+      //   nameError = "Name is required";
+      //   error = true;
+      // }
 
       this.setState(prevState => ({
           errors:{
@@ -86,7 +86,12 @@ class SignUp extends React.Component{
       const isValid = this.validateForm(this.state);
       if(isValid){
           const {email,password, name} = this.state;
-        //   await this.props.signUp({name, email, password});
+          const data = {
+            username: email,
+            password: password
+          }
+          await this.props.signUp(data);
+          // await this.props.signUp({name, email, password});
 
       //     if(this.props.auth.error){
       //         // this.notifyFail(this.props.auth.error);
@@ -108,11 +113,11 @@ render(){
           </Row>
 
           <Form>
-            <Form.Group controlId="formBasicName" className="form_field_div">
+            {/* <Form.Group controlId="formBasicName" className="form_field_div">
                 <Form.Label><span className="form__icon"><AiOutlineUser/></span><span className="label__important">*</span> Name</Form.Label>
                 <input name="name" className="form-control" type="text" value={this.state.email} placeholder="Enter name" onChange={this.handleInputChange} />
                 <div className="invalid__feedback">{this.state.errors.name}</div>
-            </Form.Group>
+            </Form.Group> */}
 
             <Form.Group controlId="formBasicEmail" className="form_field_div">
                 <Form.Label><span className="form__icon"><AiOutlineMail/></span><span className="label__important">*</span> Email address</Form.Label>

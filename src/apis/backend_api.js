@@ -1,5 +1,5 @@
 import axios from 'axios';
-const devURL = "http://localhost:3001"
+const devURL = "http://localhost:8000"
 const record =  axios.create({
     baseURL:devURL
 })

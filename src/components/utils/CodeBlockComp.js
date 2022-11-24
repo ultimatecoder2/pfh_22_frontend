@@ -1,14 +1,21 @@
 import React,{Component} from 'react';
-// import { CodeBlock, CopyBlock, dracula } from "react-code-blocks";
 import JSONPretty from 'react-json-pretty';
 import JSONPrettyMon from 'react-json-pretty/themes/monikai.css';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import { CopyBlock, dracula } from "react-code-blocks";
-import {Button} from 'react-bootstrap';
+import { CodeBlock, dracula, monokai } from "react-code-blocks";
 import '../../assets/css/code_block.css'
 import {AiOutlineCopy} from 'react-icons/ai'
 import {toast} from 'react-toastify';
 
+const data = {
+    data: `# Hello world in Python 2
+    print "Hello World"
+    
+    # Hello world in Python 3
+    print("Hello World")'`,
+    language: "python"
+
+}
 let copyHandler = () => {
     toast.success("Copied to Clipboard")
 }
@@ -23,7 +30,7 @@ let handleJsonFormat = (data) =>{
             />
         </div>
         <div>
-            <CopyToClipboard text = {JSON.stringify(data.data)}>
+            <CopyToClipboard text = {data.data}>
                 <div className="form__btn">
                     <button className="large_btn orange_red_gradiend_btn">
                         <span className='code_block_icon'><AiOutlineCopy/></span> Copy          
@@ -48,12 +55,38 @@ let handleXMLFormat = (data) => {
     )
 }
 
+let handlePythonComponent = (data) => {
+    console.log(data);
+    return(
+        <>
+        <div className="code_block_div">
+            <CodeBlock
+                text = {data.data}
+                theme={monokai}
+                showLineNumbers={true}
+                language="python"
+                codeBlock
+            />
+        </div>
+        <div>
+            <CopyToClipboard text = {data.data}>
+                <div className="form__btn">
+                    <button className="large_btn orange_red_gradiend_btn" onClick={copyHandler}>
+                        <span className='code_block_icon'><AiOutlineCopy/></span>Copy              
+                    </button>
+                </div>
+            </CopyToClipboard>
+        </div>
+        </>
+    )
+
+}
+
 const CodeBlockComp = (props) => (
     <>
-
     <div className="new_component code_block_component">
         
-        {(props.data.language=="json")?handleJsonFormat(props.data):handleXMLFormat(props.data)}
+        {(props.data.language=="json")?handleJsonFormat(props.data):handlePythonComponent(props.data)}
     </div>
     </>
   );
