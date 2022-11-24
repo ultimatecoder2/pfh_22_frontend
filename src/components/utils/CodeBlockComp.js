@@ -16,11 +16,10 @@ let handleJsonFormat = (data) =>{
                 theme = {JSONPrettyMon}
             />
         </div>
-
             <CopyToClipboard text = {JSON.stringify(data.data)}>
                 <div className="form__btn">
                     <button className="large_btn orange_red_gradiend_btn">
-                        <span className='code_block_icon'><AiOutlineCopy/></span>Copy              
+                        <span className='code_block_icon'><AiOutlineCopy/></span> Copy          
                     </button>
                 </div>
         </CopyToClipboard>
