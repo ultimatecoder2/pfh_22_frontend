@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, SIGN_UP, AUTH_FAILED, TOKEN_EXPIRED, GET_MAPPER_FAILED, GET_MAPPER_SUCCESS, EXECUTOR_FAILED, EXECUTOR_SUCCESS} from '../actions/actionTypes';
+import { SIGN_IN, SIGN_OUT, SIGN_UP, AUTH_FAILED, TOKEN_EXPIRED} from '../actions/actionTypes';
 const INITIAL_STATE = {
     isSignedIn: localStorage.getItem('isSignedIn'),
     token: localStorage.getItem('token'),
@@ -20,14 +20,6 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, isSignedIn: false, token: null, error: action.payload.error, timestamp: null, message: null }
         case TOKEN_EXPIRED:
             return { ...state, isSignedIn: false, token: null, error: null, timestamp: null, message: action.payload.msg }
-        case GET_MAPPER_SUCCESS:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: action.payload.data, error: null }
-        case GET_MAPPER_FAILED:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: null, error: action.payload.error }
-        case EXECUTOR_SUCCESS:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: action.payload.data, error: null }
-        case EXECUTOR_FAILED:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: null, error: action.payload.error }
         default:
             return state
     }

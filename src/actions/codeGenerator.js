@@ -1,4 +1,6 @@
-import {authRecord} from '../apis/backend_api';
+import axios from 'axios';
+import {authRecord, accessURL} from '../apis/backend_api';
+
 
 export const codeGeneratorAPI = (data, setLoading) => async (dispatch,getState) =>{
     try{
