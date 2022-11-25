@@ -9,6 +9,7 @@ import { accessURL } from "../apis/backend_api";
 import styles from "../assets/css/code_generator_page.css";
 import {connect} from 'react-redux'
 import {codeGeneratorAPI} from '../actions/index'
+import generatorReducer from "../reducers/generatorReducer";
 
 var data = {};
 const jsonData = {
@@ -66,20 +67,40 @@ const CodeGeneratorPage = (props) => {
       // backend api
       // send tempFile
       await props.codeGeneratorAPI(data, setLoading);
-      // needs to be fetched from redux once 415 error is resolved.
-      var genCodeProps = {};
-      if(0){
-        genCodeProps.data = "import json\n\n\n\njson_data = %s\nsource_json = dotdict(json_data)\n\ntarget_json = {}\n\n\n\ntarget_json['SSN'] = .id\ntarget_json['CustomerFullName'] = .firstName + .lastName\ntarget_json['CustomerAddress'] = .address.street + .address.suite\ntarget_json['CustomerCity'] = .address.city\ntarget_json['CustomerZipCode'] = .address.zipcode\nenums = {\"self-employed\": \"SELF\", \"salaried\": \"FIXED INCOME\", \"other\": \"MISC\"}\ntarget_json['CustomerProfession'] = enums .occupation\ntarget_json['CustomerAge'] = .age\nprint(target_json)";
+      
+      /*var genCodeProps = {};
+      if(props.generatorReducer.message && props.generatorReducer.message.data){
+        console.log(JSON.stringify(props.generatorReducer.message.data.script))
+        genCodeProps.data = props.generatorReducer.message.data.script;
+        //genCodeProps.data = "import json\n\n\n\njson_data = %s\nsource_json = dotdict(json_data)\n\ntarget_json = {}\n\n\n\ntarget_json['SSN'] = .id\ntarget_json['CustomerFullName'] = .firstName + .lastName\ntarget_json['CustomerAddress'] = .address.street + .address.suite\ntarget_json['CustomerCity'] = .address.city\ntarget_json['CustomerZipCode'] = .address.zipcode\nenums = {\"self-employed\": \"SELF\", \"salaried\": \"FIXED INCOME\", \"other\": \"MISC\"}\ntarget_json['CustomerProfession'] = enums .occupation\ntarget_json['CustomerAge'] = .age\nprint(target_json)";
       }
-      else {
+      else if (props.generatorReducer.error){
         genCodeProps.data = "print('An error occured while generating code')";
       }
+      else if(props.generatorReducer.isLoading){
+        genCodeProps.data = "print('We are getting the code.')";
+      }
       genCodeProps.language = "python";
+      setGeneratedCode(genCodeProps)*/
 
     }else{
       setInputError(true);
     }
   }
+
+  var genCodeProps = {};
+
+  if(props.generatorReducer.message && props.generatorReducer.message.data){
+    console.log(JSON.stringify(props.generatorReducer.message.data.script))
+    genCodeProps.data = props.generatorReducer.message.data.script;
+  } 
+  else if(props.generatorReducer.error){
+    genCodeProps.data = "print('An error occured while generating code')";
+  }
+  else {
+    genCodeProps.data = "print('We are getting the code.')";
+  }
+  genCodeProps.language = "python";
 
   return (
     <>
@@ -121,7 +142,7 @@ const CodeGeneratorPage = (props) => {
                     </span>
                     <span className="label__important">*</span> Generated Code
                     <div className="code_block">
-                      <CodeBlockComp data={generatedCode} />
+                      <CodeBlockComp data={genCodeProps} />
                     </div>
                   </div>
                 </div>

@@ -85,6 +85,8 @@ let handlePythonComponent = (data) => {
 const CodeBlockComp = (props) => (
   <>
     <div className="new_component code_block_component">
+      {console.log("########################")}
+      {console.log(props.data)}
       {props.data.language == "json"
         ? handleJsonFormat(props.data)
         : handlePythonComponent(props.data)}
