@@ -5,6 +5,7 @@ import userProfile from './userProfile';
 import user_form_updatesReducer from './userUpdates';
 import codeMappers from './mapperReducer'
 import codeExecutor from './executorReducer'
+import generatorReducer from './generatorReducer';
 
 export default combineReducers({
     auth:authReducer,
@@ -12,5 +13,6 @@ export default combineReducers({
     profile,
     userProfile,
     codeMappers,
-    codeExecutor
+    codeExecutor,
+    generatorReducer
 });

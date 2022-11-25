@@ -162,7 +162,8 @@ const CodeGeneratorPage = (props) => {
 const mapStateToProps = (state, ownProps)=>{
   return({
       ...ownProps,
-      auth:state.auth
+      auth:state.auth,
+      generatorReducer:state.generatorReducer
   })
 
 }
