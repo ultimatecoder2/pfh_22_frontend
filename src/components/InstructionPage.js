@@ -22,11 +22,18 @@ const InstructionPage = () => {
           <li>Arithmetic Operators, +, -, *, /, are supported.</li>
           <li>Concatenation of strings can be done using the + operator.</li>
           <li>
-            Based on if the last column of the CSV is an ENUM, the function
-            "ENUM" can be used.
+            Based on if the last column of the CSV is an ENUM, the function "ENUM" can be used.
             <ul>
               <li>Inside it pass the access modifier.</li>
               <li>Use [] to create an ENUM not {`{}`}.</li>
+            </ul>
+          </li>
+          <li>
+            To employ conditional statements, use the following structure:
+            <ul>
+              <li>
+                {"({THEN STATEMENT}) IF ({IF CONDITION}) ELSE ({ELSE CONDITION})"}
+              </li>
             </ul>
           </li>
         </ol>

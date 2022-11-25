@@ -11,13 +11,8 @@ import FileDrop from './FileDrop';
 import CodeBlockComp from './utils/CodeBlockComp';
 import '../assets/css/code_executor.css';
 import { toast } from "react-toastify";
-import {codeExecuterAPI} from '../actions/index';
+import {codeExecuterAPI, getMappingOptions} from '../actions/index';
 
-const options = [
-    { value: 'SBI_ADHAR_1', label: 'SBI_ADHAR_1' },
-    { value: 'PNB_INCOME_1', label: 'PNB_INCOME_1' },
-    { value: 'ICICI_BIRTH_2', label: 'ICICI_BIRTH_2' },
-];
 
 var data = {};
 const jsonData = {
@@ -34,6 +29,8 @@ class CodeExecutor extends Component {
         super(props);
 
         this.state = {
+            template_options:null,
+            selectedOption:[],
             selectedMapping: "",
             inputFile: null,
             inputFileJson: null,
@@ -45,8 +42,27 @@ class CodeExecutor extends Component {
         }
     }
 
-    componentDidMount() {
+    getAllMappingOptions = async() => {
+        let token = this.props.auth.token;
+        await this.props.getMappingOptions(token);
+        const vals = this.props.codeMappers.message
+        if(vals.length > 0){
+            var options = [];
 
+            for(var i=0; i< vals.length; i++) {
+                options.push({value: vals[i].id, label: vals[i].name})
+
+            }
+            this.setState({
+                template_options: this.props.codeMappers.message,
+                selectedOption: options
+            })
+        }
+    }
+
+    componentDidMount = () => {
+        this.getAllMappingOptions();
+        
     }
 
     handleInputChange = (event) => {
@@ -116,7 +132,7 @@ class CodeExecutor extends Component {
                     toast.success("Code generated successfully.")
                     this.setState({
                         outputData:{
-                            data,
+                            data:this.props.codeExecuterData.message,
                             language:"json"
                         }
                     })
@@ -148,7 +164,7 @@ class CodeExecutor extends Component {
                                 <Select
                                     value={this.state.selectedOption}
                                     onChange={this.handleChange}
-                                    options={options}
+                                    options={this.state.template_options}
                                 />
                                 <div className="invalid__feedback">{this.state.errors.selectedMapping}</div>
                             </Form.Group>
@@ -193,9 +209,10 @@ const mapStateToProps = (state, ownProps)=>{
     return({
         ...ownProps,
         auth:state.auth,
-        codeExecuterData: state.codeExecutor
+        codeExecuterData: state.codeExecutor,
+        codeMappers: state.codeMappers
     })
   
   }
 
-export default connect(mapStateToProps, {codeExecuterAPI})(CodeExecutor);
+export default connect(mapStateToProps, {codeExecuterAPI, getMappingOptions})(CodeExecutor);
