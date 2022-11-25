@@ -4,8 +4,8 @@ import { EXECUTOR_FAILED, EXECUTOR_SUCCESS, GET_MAPPER_FAILED, GET_MAPPER_SUCCES
 export const getMappingOptions = (data) => async (dispatch,getState) =>{
     try {
         const response = await authRecord(data.token).get('/main/executor/');
-        console.log(response.data);
-        dispatch({type:GET_MAPPER_SUCCESS,payload:{data: response.data}});
+        // console.log(response.data);
+        dispatch({type:GET_MAPPER_SUCCESS,payload:{data: response.data.data}});
         
     } catch (error) {
         console.log(error);
@@ -16,7 +16,7 @@ export const getMappingOptions = (data) => async (dispatch,getState) =>{
 export const codeExecuterAPI = (data) => async (dispatch,getState) =>{
     try{
         const response = await authRecord(data.token).post('/main/executor/', data);
-        dispatch({type:EXECUTOR_SUCCESS ,payload:{data: response.data}});
+        dispatch({type:EXECUTOR_SUCCESS ,payload:{data: response.data.data}});
         
     } catch (error) {
         console.log(error);
