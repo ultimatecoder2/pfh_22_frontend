@@ -8,11 +8,7 @@ import { AiOutlineCopy } from "react-icons/ai";
 import { toast } from "react-toastify";
 
 const data = {
-  data: `# Hello world in Python 2
-    print "Hello World"
-    
-    # Hello world in Python 3
-    print("Hello World")'`,
+  data: "import json\n\n\n\njson_data = %s\nsource_json = dotdict(json_data)\n\ntarget_json = {}\n\n\n\ntarget_json['SSN'] = .id\ntarget_json['CustomerFullName'] = .firstName + .lastName\ntarget_json['CustomerAddress'] = .address.street + .address.suite\ntarget_json['CustomerCity'] = .address.city\ntarget_json['CustomerZipCode'] = .address.zipcode\nenums = {\"self-employed\": \"SELF\", \"salaried\": \"FIXED INCOME\", \"other\": \"MISC\"}\ntarget_json['CustomerProfession'] = enums .occupation\ntarget_json['CustomerAge'] = .age\nprint(target_json)",
   language: "python",
 };
 let copyHandler = () => {
@@ -26,7 +22,7 @@ let handleJsonFormat = (data) => {
         <JSONPretty data={data.data} theme={JSONPrettyMon} />
       </div>
       <div className="code_block__copy">
-        <CopyToClipboard text={data.data}>
+        <CopyToClipboard text={JSON.stringify(data.data)}>
           <div className="form__btn">
             <button className="large_btn orange_red_gradiend_btn">
               <span className="code_block_icon">
