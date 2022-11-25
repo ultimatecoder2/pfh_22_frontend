@@ -8,9 +8,9 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case EXECUTOR_SUCCESS:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: action.payload.data, error: null }
+            return { ...state,  message: action.payload.data, error: null }
         case EXECUTOR_FAILED:
-            return { ...state, isSignedIn: false, token: action.payload.token, message: null, error: action.payload.error }
+            return { ...state, message: null, error: action.payload.error }
         default:
             return state
     }
