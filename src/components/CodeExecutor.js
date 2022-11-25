@@ -10,7 +10,7 @@ import { VscJson } from 'react-icons/vsc';
 import FileDrop from './FileDrop';
 import CodeBlockComp from './utils/CodeBlockComp';
 import '../assets/css/code_executor.css';
-
+import { toast } from "react-toastify";
 import {codeExecuterAPI} from '../actions/index';
 
 const options = [
@@ -37,6 +37,7 @@ class CodeExecutor extends Component {
             selectedMapping: "",
             inputFile: null,
             inputFileJson: null,
+            outputData:"",
             errors: {
                 selectedMapping: "",
                 inputFile: ""
@@ -97,8 +98,7 @@ class CodeExecutor extends Component {
 
         const reader = new FileReader(this.state.inputFile);
         reader.onload = async(evt) => {
-            console.log(typeof (evt.target.result));
-            // view on page
+
             this.setState({
                 inputFileJson: {
                     data: JSON.parse(evt.target.result),
@@ -108,11 +108,21 @@ class CodeExecutor extends Component {
                 // send to backend
                 const data = {
                     mapping_id:this.state.selectedMapping.value,
-                    source_json:this.state.inputFileJson.data
+                    source_json:this.state.inputFileJson.data,
+                    token:this.props.auth.token
                 }
-                console.log(data);
                 await this.props.codeExecuterAPI(data);
-
+                if(this.props.codeExecuterData.message){
+                    toast.success("Code generated successfully.")
+                    this.setState({
+                        outputData:{
+                            data,
+                            language:"json"
+                        }
+                    })
+                }else if(this.props.codeExecuteData.error){
+                    toast.error("Failed to execute code");
+                }
             });
 
 
@@ -170,7 +180,7 @@ class CodeExecutor extends Component {
                     <Col xs={11} md={3} className="form_content_div login_form_div">
                         <span className="form__icon"><VscJson /></span><span className="label__important">*</span> Converted JSON
                         <div className='code_block'>
-                            <CodeBlockComp data={data} />
+                            {this.state.outputData? <CodeBlockComp data={this.state.outputData}/> : <CodeBlockComp data={data} />}
                         </div>
                     </Col>
                 </div>
@@ -182,7 +192,8 @@ class CodeExecutor extends Component {
 const mapStateToProps = (state, ownProps)=>{
     return({
         ...ownProps,
-        auth:state.auth
+        auth:state.auth,
+        codeExecuterData: state.codeExecutor
     })
   
   }
