@@ -4,6 +4,7 @@ import FileDrop from "./FileDrop";
 import { AiFillWarning } from "react-icons/ai";
 import CodeBlockComp from "./utils/CodeBlockComp";
 import { VscJson, VscGear } from "react-icons/vsc";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { accessURL } from "../apis/backend_api";
 import styles from "../assets/css/code_generator_page.css";
 import {connect} from 'react-redux'
@@ -24,6 +25,7 @@ const CodeGeneratorPage = (props) => {
   const [jsonFile, setJsonFile] = useState();
   const [jsonFileData, setJsonFileData] = useState('');
   const [inputError, setInputError] = useState(false);
+  const [Loading, setLoading] = useState(false);
 
   const handleFileNameChange = (event) => {
     setFileName(event.target.value);
@@ -56,11 +58,10 @@ const CodeGeneratorPage = (props) => {
         json_file: jsonFileData,
         csv_mapping: tempFile
       }
-      console.log("data1", data);
 
       // backend api
       // send tempFile
-      await props.codeGeneratorAPI(data);
+      await props.codeGeneratorAPI(data, setLoading);
 
     }else{
       setInputError(true);
@@ -83,7 +84,7 @@ const CodeGeneratorPage = (props) => {
               <FileDrop
                 accepted_file_type="application/json"
                 setCurrentFile={setJsonFile}
-                currentFile={csvFile}
+                currentFile={jsonFile}
                 setFileName={setFileName}
               />
               <Form.Label className="file_form__label">
@@ -118,7 +119,15 @@ const CodeGeneratorPage = (props) => {
         <Row className="code_generator__generate-btn">
           <Col>
             <Button className="large_btn orange_red_gradiend_btn" onClick={handleGenerate}>
-              <VscGear /> Generate
+              {Loading ? (
+                <div>
+                  <AiOutlineLoading3Quarters className="code_generator__loader" />
+                </div>
+              ) : (
+                  <div>
+                  <VscGear /> Generate
+                  </div>
+              )}
             </Button>
           </Col>
         </Row>

@@ -1,18 +1,16 @@
 import {authRecord} from '../apis/backend_api';
 
-export const codeGeneratorAPI = (data) => async (dispatch,getState) =>{
+export const codeGeneratorAPI = (data, setLoading) => async (dispatch,getState) =>{
     try{
-        console.log("reached here");
+        setLoading(true);
         const formData = new FormData();
-        formData.append('json_file', data.json_file);
-        formData.append('csv_mapping', data.csv_mapping);
+        formData.append('source_json', JSON.stringify(data.json_file));
+        formData.append('mapping_file', data.csv_mapping);
 
-        const response = await authRecord(data.token).post('/main/executor/', data);
+        const response = await authRecord(data.token).post('/main/generator/', formData);
         console.log(response);
-
     } catch(e){
         console.log(e);
     }
-
-
+    setLoading(false);
 }

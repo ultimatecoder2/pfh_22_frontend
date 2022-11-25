@@ -21,6 +21,18 @@
     margin-bottom: 10px;
 }
 
+.code_generator__loader {
+    animation: rotate infinite 0.5s;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    } to {
+        transform: rotate(360deg);
+    }
+}
+
 @media only screen and (max-width: 600px) {
     .code_generator__container {
         display: flex;
