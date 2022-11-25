@@ -140,7 +140,6 @@ const CodeGeneratorPage = (props) => {
             </Col>
           </Row>
         )}
-        <hr />
       </div>
     </>
   );
