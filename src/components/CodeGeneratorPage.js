@@ -53,10 +53,9 @@ const CodeGeneratorPage = (props) => {
       
       const data = {
         token: props.auth.token,
-        json_file: jsonFileData,
+        json_file: JSON.stringify(jsonFileData),
         csv_mapping: tempFile
       }
-      console.log("data1", data);
 
       // backend api
       // send tempFile
