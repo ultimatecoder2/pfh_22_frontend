@@ -50,18 +50,29 @@ class Header extends React.Component{
                 </Link>
               </NavItem>
             </Nav>
-            <Nav>
+            {
+              !this.props.token ?
+              <Nav>
+                <NavItem>
+                  <Link to="/login" className="nav-link" >
+                    <span className="NavBarLink fa fa-home fa-lg" /> Login
+                  </Link>
+                </NavItem>
+                <NavItem>
+                  <Link to="/signup" className="nav-link" >
+                    <span className="NavBarLink fa fa-home fa-lg" /> Signup
+                  </Link>
+                </NavItem>
+              </Nav> : 
+              <Nav>
               <NavItem>
-                <Link to="/login" className="nav-link" >
-                  <span className="NavBarLink fa fa-home fa-lg" /> Login
+                <Link to="/logout" className="nav-link" >
+                  <span className="NavBarLink fa fa-home fa-lg" /> Logout
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link to="/signup" className="nav-link" >
-                  <span className="NavBarLink fa fa-home fa-lg" /> Signup
-                </Link>
-              </NavItem>
-            </Nav>
+              </Nav>
+            }
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
@@ -76,7 +87,7 @@ class Header extends React.Component{
 
 
 const mapStateToProps = (state) => ({
-  userid: state.auth.uid
+  token: state.auth.token
 });
 
 const mapDispatchToProps = (dispatch,props)=>({

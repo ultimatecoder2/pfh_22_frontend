@@ -129,8 +129,6 @@ class CodeExecutor extends Component {
                     source_json:this.state.inputFileJson.data,
                     token:this.props.auth.token
                 }
-                console.log("@@@@@@@@@@@@@@@@@@@@@")
-                console.log(data);
                 await this.props.codeExecuterAPI(data);
                 /*if(this.props.codeExecuterData && this.props.codeExecuterData.message){
                     toast.success("Code generated successfully.")
@@ -167,17 +165,17 @@ class CodeExecutor extends Component {
         else if(this.props.codeExecuterData.error){
             //alert("2");
             console.log("Apple")
-            genCodeProps.data = "{'error': 'An error occured'}";
+            genCodeProps.data = '{"error": "An error occured"}';
         }
         else if(this.props.codeExecuterData.isLoading){
             //alert("3");
             console.log("Banana")
-            genCodeProps.data = "{'isLoading': 'We are executing'}";
+            genCodeProps.data = '{"isLoading": "We are executing"}';
         }
         else {
             //alert("4");
             console.log("Grapes")
-            genCodeProps.data = "{'Targeted JSON': 'Displayed Here'}";
+            genCodeProps.data = '{"Targeted JSON": "Displayed Here"}';
         }
 
         genCodeProps.language = "json";
