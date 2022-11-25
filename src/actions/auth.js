@@ -15,7 +15,7 @@ export const signUp = (userDetails) => async (dispatch,getState) =>{
         localStorage.setItem('timestamp', data.timestamp);
         localStorage.setItem('token', data.token);
         history.push('/');
-        
+        console.log("User created");
         dispatch({type:SIGN_UP,payload:response.data});
     }catch(e){
         let error = e;
