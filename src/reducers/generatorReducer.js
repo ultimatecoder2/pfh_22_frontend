@@ -2,7 +2,7 @@ import { GENERATOR_SUCCESS, GENERATOR_FAILED, GENERATOR_LOADING } from '../actio
 const INITIAL_STATE = {
     error: null,
     message: null,
-    isLoading: true
+    isLoading: false
 }
 
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */

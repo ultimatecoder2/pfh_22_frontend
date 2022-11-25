@@ -28,7 +28,7 @@ const CodeGeneratorPage = (props) => {
   const [inputError, setInputError] = useState(false);
   const [Loading, setLoading] = useState(false);
   const [generatedCode, setGeneratedCode] = useState({
-    data: "print('The Generated code will be displayed here')",
+    data: "print('Code will be displayed here')",
     language : "python"
   });
 
@@ -67,21 +67,6 @@ const CodeGeneratorPage = (props) => {
       // backend api
       // send tempFile
       await props.codeGeneratorAPI(data, setLoading);
-      
-      /*var genCodeProps = {};
-      if(props.generatorReducer.message && props.generatorReducer.message.data){
-        console.log(JSON.stringify(props.generatorReducer.message.data.script))
-        genCodeProps.data = props.generatorReducer.message.data.script;
-        //genCodeProps.data = "import json\n\n\n\njson_data = %s\nsource_json = dotdict(json_data)\n\ntarget_json = {}\n\n\n\ntarget_json['SSN'] = .id\ntarget_json['CustomerFullName'] = .firstName + .lastName\ntarget_json['CustomerAddress'] = .address.street + .address.suite\ntarget_json['CustomerCity'] = .address.city\ntarget_json['CustomerZipCode'] = .address.zipcode\nenums = {\"self-employed\": \"SELF\", \"salaried\": \"FIXED INCOME\", \"other\": \"MISC\"}\ntarget_json['CustomerProfession'] = enums .occupation\ntarget_json['CustomerAge'] = .age\nprint(target_json)";
-      }
-      else if (props.generatorReducer.error){
-        genCodeProps.data = "print('An error occured while generating code')";
-      }
-      else if(props.generatorReducer.isLoading){
-        genCodeProps.data = "print('We are getting the code.')";
-      }
-      genCodeProps.language = "python";
-      setGeneratedCode(genCodeProps)*/
 
     }else{
       setInputError(true);
@@ -97,8 +82,11 @@ const CodeGeneratorPage = (props) => {
   else if(props.generatorReducer.error){
     genCodeProps.data = "print('An error occured while generating code')";
   }
-  else {
+  else if(props.generatorReducer.isLoading){
     genCodeProps.data = "print('We are getting the code.')";
+  }
+  else {
+    genCodeProps.data = "print('Code will be displayed here')";
   }
   genCodeProps.language = "python";
 

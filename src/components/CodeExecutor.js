@@ -44,8 +44,9 @@ class CodeExecutor extends Component {
 
     getAllMappingOptions = async() => {
         let token = this.props.auth.token;
-        await this.props.getMappingOptions(token);
-        const vals = this.props.codeMappers.message
+        await this.props.getMappingOptions({token});
+        const vals = this.props.codeMappers.message;
+        //console.log(vals);
         if(vals.length > 0){
             var options = [];
 
@@ -53,9 +54,10 @@ class CodeExecutor extends Component {
                 options.push({value: vals[i].id, label: vals[i].name})
 
             }
+            console.log(options);
             this.setState({
-                template_options: this.props.codeMappers.message,
-                selectedOption: options
+                template_options: options,
+                selectedOption: null
             })
         }
     }
@@ -127,8 +129,10 @@ class CodeExecutor extends Component {
                     source_json:this.state.inputFileJson.data,
                     token:this.props.auth.token
                 }
+                console.log("@@@@@@@@@@@@@@@@@@@@@")
+                console.log(data);
                 await this.props.codeExecuterAPI(data);
-                if(this.props.codeExecuterData.message){
+                /*if(this.props.codeExecuterData && this.props.codeExecuterData.message){
                     toast.success("Code generated successfully.")
                     this.setState({
                         outputData:{
@@ -136,9 +140,12 @@ class CodeExecutor extends Component {
                             language:"json"
                         }
                     })
-                }else if(this.props.codeExecuteData.error){
+                }else if(this.props.codeExecuterData && this.props.codeExecuteData.error){
                     toast.error("Failed to execute code");
                 }
+                else {
+
+                }*/
             });
 
 
@@ -149,6 +156,33 @@ class CodeExecutor extends Component {
     }
 
     render() {
+
+        var genCodeProps = {};
+
+        if(this.props.codeExecuterData.message){
+            //alert("1");
+            console.log("Mango")
+            genCodeProps.data = this.props.codeExecuterData.message;
+        }
+        else if(this.props.codeExecuterData.error){
+            //alert("2");
+            console.log("Apple")
+            genCodeProps.data = "{'error': 'An error occured'}";
+        }
+        else if(this.props.codeExecuterData.isLoading){
+            //alert("3");
+            console.log("Banana")
+            genCodeProps.data = "{'isLoading': 'We are executing'}";
+        }
+        else {
+            //alert("4");
+            console.log("Grapes")
+            genCodeProps.data = "{'Targeted JSON': 'Displayed Here'}";
+        }
+
+        genCodeProps.language = "json";
+        
+
         return (
             <div className='container'>
                 <div className="row">
@@ -196,7 +230,8 @@ class CodeExecutor extends Component {
                     <Col xs={11} md={3} className="form_content_div login_form_div">
                         <span className="form__icon"><VscJson /></span><span className="label__important">*</span> Converted JSON
                         <div className='code_block'>
-                            {this.state.outputData? <CodeBlockComp data={this.state.outputData}/> : <CodeBlockComp data={data} />}
+                            <CodeBlockComp data={genCodeProps} />
+                            {/* {this.state.outputData? <CodeBlockComp data={this.state.outputData}/> : <CodeBlockComp data={data} />} */}
                         </div>
                     </Col>
                 </div>
