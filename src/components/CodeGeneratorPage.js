@@ -6,6 +6,8 @@ import CodeBlockComp from "./utils/CodeBlockComp";
 import { VscJson, VscGear } from "react-icons/vsc";
 import { accessURL } from "../apis/backend_api";
 import styles from "../assets/css/code_generator_page.css";
+import {connect} from 'react-redux'
+import {codeGeneratorAPI} from '../actions/index'
 
 var data = {};
 const jsonData = {
@@ -16,83 +18,54 @@ const jsonData = {
 data.data = jsonData;
 data.language = "json";
 
-const CodeGeneratorPage = () => {
+const CodeGeneratorPage = (props) => {
   const [fileName, setFileName] = useState();
   const [csvFile, setCsvFile] = useState();
   const [jsonFile, setJsonFile] = useState();
-  const [jsonFileData, setJsonFileData] = useState();
+  const [jsonFileData, setJsonFileData] = useState('');
   const [inputError, setInputError] = useState(false);
 
   const handleFileNameChange = (event) => {
     setFileName(event.target.value);
   };
 
-  const handleGenerate = () => {
+  function readFileAsync(file) {
+    return new Promise(async(resolve, reject) => {
+      let reader = new FileReader();
+
+      reader.onload = () => {
+        setJsonFileData(reader.result);
+        resolve(reader.result);
+      }
+      reader.readAsText(file);
+      reader.onerror = reject;
+    })
+  }
+
+  const handleGenerate = async() => {
     setInputError(false);
     if (fileName && fileName !== "" && csvFile && jsonFile) {
+      await readFileAsync(jsonFile);
       const tempFile = new File([csvFile], fileName, {
         type: csvFile.type,
         lastModified: csvFile.lastModified,
       });
+      
+      const data = {
+        token: props.auth.token,
+        json_file: jsonFileData,
+        csv_mapping: tempFile
+      }
+      console.log("data1", data);
 
       // backend api
       // send tempFile
+      await props.codeGeneratorAPI(data);
 
-      let formData = new FormData();
-      console.log("************************");
-      console.log(csvFile);
-      // formData.append('csv_file', csvFile);
-
-      const reader = new FileReader(jsonFile);
-
-      reader.onload = (evt) => {
-        console.log(typeof evt.target.result);
-        // view on page
-        setJsonFileData(JSON.parse(evt.target.result));
-
-        // send to backend
-      };
-
-      console.log("************************");
-      console.log(formData);
-
-      let token = "Token " + "f4e5b1f1b961faaf8d6b4431dd6715d8cd9bbfaa30ac95ee1f0be6aa5e770741";
-        fetch(accessURL+'main/generator/', {
-          method: "POST",
-          body: formData,
-          headers: {
-            "Content-Type": "multipart/form-data",
-            "Authorization" : token,
-          },
-      })
-        .then(
-          (response) => {
-            if (response.ok) {
-              return response;
-            } else {
-              var error = new Error(
-                "Error " + response.status + ": " + response.statusText
-              );
-              error.response = response;
-              throw error;
-            }
-          },
-          (error) => {
-            throw error;
-          }
-        )
-        .then((response) => response.json())
-        .then((response) => {
-          // dispatch(addRawSighting(response));
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log("post sightings", error.message);
-        });
-    } else {
+    }else{
       setInputError(true);
     }
-  };
+  }
 
   return (
     <>
@@ -164,4 +137,12 @@ const CodeGeneratorPage = () => {
   );
 };
 
-export default CodeGeneratorPage;
+const mapStateToProps = (state, ownProps)=>{
+  return({
+      ...ownProps,
+      auth:state.auth
+  })
+
+}
+
+export default connect(mapStateToProps,{codeGeneratorAPI})(CodeGeneratorPage);

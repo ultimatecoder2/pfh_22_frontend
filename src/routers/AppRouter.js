@@ -14,6 +14,7 @@ import InstructionPage from "../components/InstructionPage";
 
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import CodeBlockComp from "../components/utils/CodeBlockComp";
 
 const AppRouter = () => (
   <BrowserRouter>
@@ -21,8 +22,6 @@ const AppRouter = () => (
       <Header />
       <Routes>
         {/* Replace Route with public and private  */}
-        
-        {/* <Route path="/code-executor" element={<CodeExecutor />} /> */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/code-generator" element={<CodeGeneratorPage />} />
