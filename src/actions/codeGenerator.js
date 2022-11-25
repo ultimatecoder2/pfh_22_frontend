@@ -1,13 +1,22 @@
-import {authRecord} from '../apis/backend_api';
+import axios from 'axios';
+import {authRecord, accessURL} from '../apis/backend_api';
+
 
 export const codeGeneratorAPI = (data) => async (dispatch,getState) =>{
     try{
-        console.log("reached here");
         const formData = new FormData();
-        formData.append('json_file', data.json_file);
-        formData.append('csv_mapping', data.csv_mapping);
+        formData.append('source_json', data.json_file);
+        formData.append('mapping_file', data.csv_mapping);
 
-        const response = await authRecord(data.token).post('/main/executor/', data);
+        const response = await axios({
+            method: "POST",
+            url: accessURL+"main/executor/",
+            data: formData,
+            headers: {
+                "Authorization": "Token "+ data.token,
+                "Content-type":"multipart/form-data"
+            }
+        });
         console.log(response);
 
     } catch(e){
